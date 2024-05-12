@@ -1,5 +1,8 @@
 package com.study01.answer.doyeonQuestionAnswer.eunah;
 
+import java.util.Random;
+import java.util.Scanner;
+
 public class EunahAnswer {
     public static void main(String[] args) {
 
@@ -18,12 +21,43 @@ public class EunahAnswer {
          * 곱셈, 나눗셈은 같은 패키지-다른 클래스에 메소드를 생성하세요 (static 메소드 하나. 리턴타입은 void)
          */
 
+        Random random = new Random();
+        int num = random.nextInt(21) - 10;
 
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("-10부터 10까지 정수 하나를 입력하세요. : ");
+        int inputNum = scanner.nextInt();
 
+        EunahAnswer eunahAnswer = new EunahAnswer();
+        eunahAnswer.finalResult(num, inputNum);
 
     }
 
+    public int AddSub(int num, int inputNum) {
 
+        int result = num + inputNum;
+        int result2 = num - inputNum;
+
+        System.out.println(num + " + " + inputNum + " = " + result);
+        System.out.println(num + " - " + inputNum + " = " + result2);
+
+        return result + result2;
+    }
+
+    public void finalResult(int num, int inputNum) {
+
+        if (inputNum == 0) {
+            System.out.println("프로그램 종료");
+        } else {
+            String checkNum = EunahAnswer_2.CheckNum(num);
+            System.out.println(checkNum);
+            EunahAnswer eunahAnswer = new EunahAnswer();
+            eunahAnswer.AddSub(num, inputNum);
+            EunahAnswer_2.MultiDiv(num, inputNum);
+            System.out.println("프로그램 종료");
+
+        }
+    }
 
 }
 
