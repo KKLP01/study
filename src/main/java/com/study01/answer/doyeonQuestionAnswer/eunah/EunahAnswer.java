@@ -41,7 +41,7 @@ public class EunahAnswer {
         System.out.println(num + " + " + inputNum + " = " + result);
         System.out.println(num + " - " + inputNum + " = " + result2);
 
-        return result + result2;
+        return result;  // 딱히 돌려줄 것이 없는데.....ㅎㅎ
     }
 
     public void finalResult(int num, int inputNum) {
