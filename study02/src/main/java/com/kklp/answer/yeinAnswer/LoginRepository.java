@@ -3,40 +3,66 @@ package main.java.com.kklp.answer.yeinAnswer;
 
 public class LoginRepository {
 
-    private final static UserDTO[] users = new UserDTO[10];
-
+    // 전체 유저 10명 고정
+    private final static User[] users = new User[10];
     private static int count;
 
-    public boolean join(UserDTO userDTO) {
-        if (count < 10) {
-            users[count++] = userDTO;
+    public int showCount() {
+        return count;
+    }
+
+    // 회원가입 완료 후 성공 여부를 반환
+    public static boolean save(User newUsers) {
+
+        if (count != 10) {
+            users[count] = newUsers;
+            count++;
+            System.out.println("회원가입이 완료되었습니다. 로그인해 주세요.");
+            System.out.println("회원님의 가입이 완료되어 총 회원수는 : " + count + "명 입니다.");
             return true;
+
         } else {
-            System.out.println("유저가 꽉 찼습니다.");
+            System.out.println("정원 초과로 더이상 회원가입이 불가합니다. 죄송합니다.");
             return false;
         }
     }
 
-    public int login(UserDTO userDTO) {
-        if (users[0] == null) {
-            System.out.println("등록된 회원이 없습니다.");
-            return 2;
-        }
+//    // 아이디 중복 확인
+//    public static boolean isUserIdUnique(String id) {
+//        boolean result = true;
+//
+//        for (int i = 0; i < count; i++) {
+//            if (users[i].getId() == id) {
+//                result = false;
+//            } else result = true;
+//        } return result;
+//    }
 
-        for (int i = 0; i < users.length; i++) {
-            if (users[i].getId().equals(userDTO.getId())) {
-                if (users[i].getPwd().equals(userDTO.getPwd())) {
-                    return 0;
+    // 로그인 확인 후 성공 여부 반환
+    public boolean successLogin(String id, String pwd) {
+        boolean isSuccess = false;
+
+        for (int i = 0; i < count; i++) {
+
+            if (users[i].getId().equals(id)) {
+
+                if (users[i].getPwd().equals(pwd)) {
+                    System.out.println(users[i].getName() +"님 반갑습니다. 로그인에 성공하셨습니다.");
+                    isSuccess = true;
+                    return true; // 성공했으니 로그인 확인 끝내기 (안끝내면 nullPointerException 발생)
+
                 } else {
-                    System.out.println(" ");
-                    break;
+                    System.out.println("비밀번호가 틀렸습니다. 다시 로그인해 주세요.\n");
+                    isSuccess = false;
+                    return false;
                 }
-            } else {
-                System.out.println(" ");
-                break;
             }
         }
-        System.out.println("아이디나 비밀번호가 다릅니다.");
-        return 1;
+        System.out.println("가입되지 않은 아이디 입니다. 다시 로그인해 주세요.\n");
+        return false;
+    }
+
+    public void deleteUserData() {
+
     }
 }

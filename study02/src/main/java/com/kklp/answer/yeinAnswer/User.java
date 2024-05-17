@@ -1,20 +1,20 @@
 package main.java.com.kklp.answer.yeinAnswer;
 
-public class UserDTO {
+public class User {
+
+    LoginRepository loginRepository = new LoginRepository();
 
     private String id;
+
     private String pwd;
+
     private String name;
 
-    public UserDTO() {
-    }
+    // 기본 생성자
+    public User() {}
 
-    public UserDTO(String id, String pwd) {
-        this.id = id;
-        this.pwd = pwd;
-    }
-
-    public UserDTO(String id, String pwd, String name) {
+    // 전체 초기화 생성자
+    public User(String id, String pwd, String name) {
         this.id = id;
         this.pwd = pwd;
         this.name = name;
@@ -42,14 +42,5 @@ public class UserDTO {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    @Override
-    public String toString() {
-        return "UserDTO{" +
-                "id='" + id + '\'' +
-                ", pwd='" + pwd + '\'' +
-                ", name='" + name + '\'' +
-                '}';
     }
 }

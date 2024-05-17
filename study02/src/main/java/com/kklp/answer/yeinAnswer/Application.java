@@ -24,37 +24,51 @@ public class Application {
          *  User
          *  - 회원의 id, pwd, name 을 받을 DTO
          *
-         *
-         *
          * */
 
-        Scanner scr = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
+
         LoginService loginService = new LoginService();
 
         while (true) {
-            System.out.println("========로그인 및 회원가입 프로그램========");
+
+            System.out.println("\n========사용자 로그인 및 회원가입 프로그램========\n");
             System.out.println("1. 로그인");
             System.out.println("2. 회원 가입");
-            System.out.println("9. 프로그램 종료");
-            int no = scr.nextInt();
+            System.out.println("9. 프로그램 종료 \n");
+            System.out.println("메뉴 선택 : ");
+            int choice = sc.nextInt();
 
-            switch (no) {
-                case 1:
-                    int isOn = loginService.login();
-                    if (isOn == 1) {
-                        return;
-                    } else {
-                        break;
+            switch (choice) {
+
+                case 1: if (loginService.login() == 1) { // 로그인 성공 여부에 따른 메인화면 전환
+
+                    while (true) {
+                        System.out.println("1. 로그 아웃");
+                        System.out.println("2. 회원 탈퇴\n");
+                        System.out.println("메뉴 입력 : ");
+                        int no = sc.nextInt();
+
+                        switch (no) {
+                            case 1:
+                                System.out.println("로그아웃 되었습니다.");
+                                break;
+                            case 2:
+                                loginService.deleteUser();
+                                break;
+                            default:
+                                System.out.println("잘못된 번호를 입력하셨습니다.\n");
+                                break;
+                        }
                     }
-                case 2:
-                    loginService.signUp();
+                }
                     break;
+
+                case 2: loginService.signUp(); break;
                 case 9:
-                    System.out.println("프로그램을 종료합니다.");
-                    return;
+                    System.out.println("프로그램 종료"); return;
                 default:
-                    System.out.println("잘못된 번호를 입력 하셨습니다.");
-                    break;
+                    System.out.println("잘못된 번호를 입력하셨습니다.\n"); break;
             }
         }
     }
