@@ -1,5 +1,7 @@
 package main.java.com.kklp.answer.yeinAnswer;
 
+import java.util.Date;
+
 public class User {
 
     LoginRepository loginRepository = new LoginRepository();
@@ -10,6 +12,18 @@ public class User {
 
     private String name;
 
+    private Boolean active;
+
+    private Date deleteDate;
+
+    public Date getDeleteDate() {
+        return deleteDate;
+    }
+
+    public void setDeleteDate(Date deleteDate) {
+        this.deleteDate = deleteDate;
+    }
+
     // 기본 생성자
     public User() {}
 
@@ -18,6 +32,7 @@ public class User {
         this.id = id;
         this.pwd = pwd;
         this.name = name;
+        this.active = true;
     }
 
     public String getId() {
@@ -42,5 +57,13 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 }
