@@ -42,10 +42,9 @@ public class Application {
                 case 1:
                     int isOn = loginService.login();
                     if (isOn == 1) {
-                        return;
-                    } else {
-                        break;
+                        loginService.loggedInMenu();
                     }
+                    break;
                 case 2:
                     loginService.signUp();
                     break;
