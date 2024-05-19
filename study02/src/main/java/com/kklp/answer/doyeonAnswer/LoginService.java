@@ -8,6 +8,7 @@ public class LoginService {
     Scanner sc = new Scanner(System.in);
     LoginRepository loginRepository = new LoginRepository();
 
+
     public void login() {           //로그인
 
         System.out.println("====================");
@@ -69,6 +70,7 @@ public class LoginService {
             }
         }
     }
+
 
     public void loginOn(User newUser) {         //로그인 후 메인
 

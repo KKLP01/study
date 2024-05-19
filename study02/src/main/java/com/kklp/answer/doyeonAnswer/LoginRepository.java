@@ -11,6 +11,7 @@ public class LoginRepository {
         users = new User[10];
     }
 
+
     public boolean store(User newUser) {            //DB저장
 
         System.out.println("가입 전 DB 속 데이터 수: "+count);
@@ -28,9 +29,11 @@ public class LoginRepository {
         }
     }
 
+
     public User[] findAllUsers() {          //final static 객체배열 접근
         return users;
     }
+
 
     public void storeDel(User newUser) {            //DB삭제
 

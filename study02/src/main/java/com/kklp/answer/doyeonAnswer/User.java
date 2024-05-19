@@ -1,6 +1,7 @@
 package main.java.com.kklp.answer.doyeonAnswer;
 
 public class User {
+
     private String id;
     private String pwd;
     private String name;

@@ -51,7 +51,6 @@ public class Application {
                     System.out.println("잘못된 번호를 입력");
                     break;
             }
-
         }
     }
 }
