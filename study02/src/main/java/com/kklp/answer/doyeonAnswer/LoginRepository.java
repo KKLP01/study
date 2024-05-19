@@ -2,41 +2,58 @@ package main.java.com.kklp.answer.doyeonAnswer;
 
 public class LoginRepository {
 
-    private final static UserDTO[] users = new UserDTO[10];
-
+    //private final static User[] users = new User[10]; 선언과 동시 초기화
+    private final static User[] users;
     private static int count;
 
-    public boolean join(UserDTO userDTO) {
+    //static초기화
+    static {
+        users = new User[10];
+    }
+
+    public boolean store(User newUser) {            //DB저장
+
+        System.out.println("가입 전 DB 속 데이터 수: "+count);
         if (count < 10) {
-            users[count++] = userDTO;
+            users[count] = newUser;         //초기화
+            System.out.println("해당 데이터 users["+count+"]="+users[count]+"로 초기화");
+            count++;            //객체 배열 속 객체 증가
+
+            System.out.println("가입되었습니다");
+            System.out.println("가입 후 DB 속 데이터 수: "+count);
             return true;
         } else {
-            System.out.println("유저가 꽉 찼습니다.");
+            System.out.println("정원초과");
             return false;
         }
     }
 
-    public int login(UserDTO userDTO) {
+    public User[] findAllUsers() {          //final static 객체배열 접근
+        return users;
+    }
 
-        if (users[0] == null) {
-            System.out.println("등록된 회원이 없습니다.");
-            return 2;
-        }
+    public void storeDel(User newUser) {            //DB삭제
 
-        for (int i = 0; i < users.length; i++) {
-            if (users[i].getId().equals(userDTO.getId())) {
-                if (users[i].getPwd().equals(userDTO.getPwd())) {
-                    return 0;
-                } else {
-                    System.out.println(" ");
-                    break;
-                }
-            } else {
-                System.out.println(" ");
+        System.out.println("탈퇴 전 DB 속 데이터 수: "+count);
+        for (int i = 0; i < count; i++) {
+            if (users[i].getId().equals(newUser.getId())&&users[i].getPwd().equals(newUser.getPwd())) {
+                users[i] = null;            //초기화
+                System.out.println("해당 데이터 users["+i+"]="+users[i]+"로 초기화");
                 break;
             }
         }
-        System.out.println("아이디나 비밀번호가 다릅니다.");
-        return 1;
+
+        for (int j = 1; j < count; j++) {           //DB정렬
+            if (users[j - 1] == null && users[j] != null) {
+                users[j - 1] = users[j];
+                users[j] = null;
+            }
+            System.out.println(j+"번째 데이터: "+users[j-1]);            //정렬된 DB출력
+        }
+
+        count--;            //객체 배열 속 객체 감소
+        System.out.println("탈퇴되었습니다");
+        System.out.println("탈퇴 후 DB 속 데이터 수: "+count);
     }
 }
+

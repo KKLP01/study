@@ -1,20 +1,19 @@
 package main.java.com.kklp.answer.doyeonAnswer;
 
-public class UserDTO {
-
+public class User {
     private String id;
     private String pwd;
     private String name;
 
-    public UserDTO() {
+    public User() {
     }
 
-    public UserDTO(String id, String pwd) {
+    public User(String id, String pwd) {
         this.id = id;
         this.pwd = pwd;
     }
 
-    public UserDTO(String id, String pwd, String name) {
+    public User(String id, String pwd, String name) {
         this.id = id;
         this.pwd = pwd;
         this.name = name;
@@ -46,10 +45,11 @@ public class UserDTO {
 
     @Override
     public String toString() {
-        return "UserDTO{" +
+        return "User{" +
                 "id='" + id + '\'' +
                 ", pwd='" + pwd + '\'' +
                 ", name='" + name + '\'' +
                 '}';
     }
 }
+
