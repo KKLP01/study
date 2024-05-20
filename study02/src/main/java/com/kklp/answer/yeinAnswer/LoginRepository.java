@@ -7,7 +7,7 @@ import java.util.Date;
 
 public class LoginRepository {
 
-    // 전체 유저 10명 고정
+//      전체 유저 10명 고정
 //    private final static User[] users = new User[]{new User(),new User(),new User(),new User(),new User(),new User(),new User(),new User(),new User(),new User()};
 //    private final static User[] users = new User[10]
     private final static User[] users = new User[]{null,null,null,null,null,null,null,null,null,null};
@@ -30,11 +30,15 @@ public class LoginRepository {
 
                 Date currentDate = new Date();
                 // 아이디 같고 5분 넘었을 때
-                if (newUsers.getId().equals(deleteUsers[i].getId()) && deleteUsers[i].getDeleteDate().getTime()+5000 > currentDate.getTime()) {
+                long timeDiff = currentDate.getTime() - deleteUsers[i].getDeleteDate().getTime();
+                long fiveMin = 1000*60*5;
+                if (newUsers.getId().equals(deleteUsers[i].getId()) && timeDiff > fiveMin) {
+                    System.out.println("탈퇴한지 5분이 경과."+deleteUsers[i].getId() + deleteUsers[i].getDeleteDate().getTime() + currentDate.getTime());
+                    System.out.println("탈퇴한지 5분이 경과."+deleteUsers[i].getId() + deleteUsers[i].getDeleteDate().toString() + currentDate.toString());
                     break;
 
                 } else {
-                    System.out.println("탈퇴한지 5분이 안되었습니다. 잠시 후 다시 시도해 주세요.");
+                    System.out.println("탈퇴한지 5분이 안되었습니다. 잠시 후 다시 시도해 주세요. 탈퇴후 경과 시간: "+ (timeDiff/1000) + '초');
                     return false;
                 }
             }
@@ -49,6 +53,10 @@ public class LoginRepository {
             count++;
             System.out.println("회원가입이 완료되었습니다. 로그인해 주세요.");
             System.out.println("회원님의 가입이 완료되어 총 회원수는 : " + count + "명 입니다.");
+            for (int i = 0; i < users.length; i++) {
+                if (users[i] == null) continue;
+                System.out.println(users[i].toString());
+            }
             return true;
 
         } else {
@@ -57,16 +65,18 @@ public class LoginRepository {
         }
     }
 
-//    // 아이디 중복 확인
-//    public static boolean isUserIdUnique(String id) {
-//        boolean result = true;
-//
-//        for (int i = 0; i < count; i++) {
-//            if (users[i].getId() == id) {
-//                result = false;
-//            } else result = true;
-//        } return result;
-//    }
+    // 아이디 중복 확인
+    public static boolean isUserIdUnique(String inputId) {
+        boolean result = true;
+
+        for (int i = 0; i < users.length; i++) {
+            if (users[i] == null) continue;
+
+            if (users[i].getId().equals(inputId)) { // 이미 있는 아이디면 false
+                result = false;
+            } else result = true; // 유니크하면 true
+        } return result;
+    }
 
     // 로그인 확인 후 성공 여부 반환
     public boolean successLogin(String id, String pwd) {
@@ -98,8 +108,9 @@ public class LoginRepository {
     private final static User[] deleteUsers = new User[10];
 
     public boolean deleteUserData(String currentLoginId) {
-        for (int i = 0, k=0; i < users.length; i++) {
+        for (int i = 0, k = 0; i < users.length; i++) {
             if (users[i] == null) continue;;
+
             if (users[i].getId().equals(currentLoginId)) {
                 deleteUsers[i] = users[i]; // null 처리 전 삭제회원 배열에 저장
 
@@ -114,5 +125,4 @@ public class LoginRepository {
         System.out.println( "탈퇴 실패.\n");
         return false;
     }
-
 }
