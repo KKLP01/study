@@ -75,6 +75,7 @@ public class LoginRepository {
             if (users[i].getId().equals(inputId)) { // 이미 있는 아이디면 false
                 result = false;
             } else result = true; // 유니크하면 true
+
         } return result;
     }
 

@@ -17,17 +17,19 @@ public class LoginService {
 
             User user = new User();
 
-            System.out.println("========== 회원 가입 ==========\n");
-            System.out.println("사용하실 아이디를 입력해 주세요 : ");
+            while (true) {
+                System.out.println("========== 회원 가입 ==========\n");
+                System.out.println("사용하실 아이디를 입력해 주세요 : ");
 
-            String inputUserId = sc.nextLine();
-            boolean idUnique = loginRepository.isUserIdUnique(inputUserId);
+                String inputUserId = sc.nextLine();
+                boolean idUnique = loginRepository.isUserIdUnique(inputUserId);
 
-            if (idUnique == true) { // 유니크하면
-                user.setId(inputUserId);
-            } else {
-                System.out.println("이미 가입된 아이디 입니다.");
-                break;
+                if (idUnique == true) { // 유니크하면
+                    user.setId(inputUserId);
+                    break;
+                } else {
+                    System.out.println("이미 가입된 아이디 입니다.");
+                }
             }
 
             System.out.println("가입자의 이름을 입력해 주세요 : ");
