@@ -89,16 +89,16 @@ public class LoginService {
                     if (idStore != null) {          //비교데이터 남은 경우
                         if (newId.getId().equals(idStore.getId())) {            //아이디 동일여부확인
                             System.out.println("이미 가입된 아이디입니다. 다시 입력해주세요");
-                            break;
+                            break;          //for문 퇴장-while문 입장
                         }
                     } else {            //비교데이터 없는 경우
                         System.out.println("사용 가능한 아이디입니다");
-                        return newId.getId();
+                        return newId.getId();           //입력한 아이디 리턴
                     }
                 }
             } else {            //DB확인-가입자가 없는 경우
                 System.out.println("사용 가능한 아이디입니다");
-                return newId.getId();
+                return newId.getId();           //입력한 아이디 리턴
             }
         }
     }
