@@ -12,13 +12,25 @@ public class Application {
 
         // 플레이어 핑퐁하기
         while (true) {
-
-            checkGame.checkHorizon(playerAction.player1Input());
-            checkGame.checkHorizon(playerAction.player2Input());
-
-            // 이곳에 승리를 판별하는 메서드 작성할 것
             // true : 아직 승부 판별 못하는 상태
             // false : 승부가 끝난 상태
+
+            boolean isDone;
+
+            String[][] afterPlayer1 = playerAction.player1Input();
+            isDone = checkGame.checkHorizon(afterPlayer1);
+            isDone = checkGame.checkVertical(afterPlayer1);
+
+            if (isDone == false) {
+                break;
+            }
+
+            String[][] afterPlayer2 = playerAction.player2Input();
+            isDone = checkGame.checkHorizon(afterPlayer2);
+            isDone = checkGame.checkVertical(afterPlayer2);
+            if (isDone == false) {
+                break;
+            }
         }
     }
 }
