@@ -6,6 +6,17 @@ public class LoginRepository {
 
     private static int count;
 
+    // ID 중복 체크 메소드 추가
+    public boolean isIdDuplicate(String id) {
+        // 향상된 for 문으로 배열 전체 조회 비교
+        for (UserDTO user : users) {
+            if (user != null && user.getId().equals(id)) {
+                return true; // ID가 이미 존재함
+            }
+        }
+        return false; // ID가 중복되지 않음
+    }
+
     public boolean join(UserDTO userDTO) {
         if (count < 10) {
             users[count++] = userDTO;
@@ -48,13 +59,19 @@ public class LoginRepository {
                 // 마지막 공간은 다음 인덱스가 없기 때문에 null로 최종 처리
                 users[users.length - 1] = null;
 
-                /* 배열 재정렬 값 출력 확인
-                for (int c = 0 ; c < users.length; c++) {
-                    System.out.println(users[c]);
-                } */
-
                 // 사용자 수 감소
                 count--;
+
+                // 배열 재정렬 값 출력 확인
+                System.out.println("탈퇴 시 회원목록 : ");
+                for (int c = 0; c < users.length; c++) {
+                    if (users[c] != null) {
+                        System.out.println((c + 1) + " 번째 회원 : " + users[c] + "");
+                    } else {
+                        System.out.println("더 이상 회원이 없습니다.");
+                        break;
+                    }
+                }
                 return true;
             }
         }

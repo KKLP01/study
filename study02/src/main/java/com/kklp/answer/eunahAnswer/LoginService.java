@@ -17,7 +17,7 @@ public class LoginService {
         UserDTO userDTO = new UserDTO(a, b);
         int isTrue = loginRepository.login(userDTO);
         if (isTrue == 0) {
-            System.out.println("로그인 완료 되었습니다.");
+            System.out.println(userDTO.getName());
             loggedInUser = userDTO;
             return 1;
         } else {
@@ -29,6 +29,19 @@ public class LoginService {
         System.out.println("======회원 가입 창======");
         System.out.println("아이디를 입력 해주세요 : ");
         String a = scr.nextLine();
+
+        // ID 중복 체크
+        while (true) {
+            if (loginRepository.isIdDuplicate(a)) {
+                System.out.println("이미 가입된 아이디입니다. 다시 입력해 주세요.");
+            } else {
+                break; // 중복되지 않는 ID가 입력되면 루프를 벗어남
+            }
+            System.out.println("아이디를 입력 해주세요 : ");
+            a = scr.nextLine();
+        }
+
+        System.out.println("사용 가능한 아이디입니다.");
         System.out.println("이름을 입력 해주세요 : ");
         String b = scr.nextLine();
 
@@ -59,7 +72,7 @@ public class LoginService {
         String choice = scr.nextLine();
 
         // 사용자가 'Y' 또는 'y'를 입력했을 경우
-        if ("Y".equalsIgnoreCase(choice)) {
+        if (choice.equalsIgnoreCase("Y")) {
             // loginRepository의 deleteUser 메소드를 호출, 현재 로그인된 사용자의 ID로 탈퇴 시도
             boolean isDeleted = loginRepository.deleteUser(loggedInUser.getId());
             if (isDeleted) {
@@ -67,8 +80,8 @@ public class LoginService {
                 // 로그인된 사용자 정보를 초기화하여 로그아웃 상태로 만듦
                 loggedInUser = null;
             }
-        // 사용자가 'N' 또는 'n'를 입력했을 경우
-        } else if ("N".equalsIgnoreCase(choice)) {
+            // 사용자가 'N' 또는 'n'를 입력했을 경우
+        } else if (choice.equalsIgnoreCase("N")) {
             System.out.println("잘 생각하셨습니다.");
             // 탈퇴 취소 후 로그인 상태 메뉴로 돌아가기
             loggedInMenu();
@@ -80,10 +93,13 @@ public class LoginService {
     // 로그인된 상태에서의 메뉴
     public void loggedInMenu() {
         while (loggedInUser != null) {
+            System.out.println("");
             System.out.println("========로그인 상태========");
-            System.out.println("1. 로그아웃");
-            System.out.println("2. 회원탈퇴");
+            System.out.print("1. 로그아웃   ");
+            System.out.println("2. 회원탈퇴   ");
+            System.out.println("==========================");
             int choice = scr.nextInt();
+            scr.nextLine();
 
             switch (choice) {
                 case 1:
