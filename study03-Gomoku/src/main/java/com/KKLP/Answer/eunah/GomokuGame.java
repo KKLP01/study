@@ -14,6 +14,7 @@ public class GomokuGame {
         // 플레이어 1 이름 받기
         System.out.print("첫 번째 플레이어의 이름을 입력해주세요. : ");
         String player1Name = sc.nextLine();
+
         // 해당플레이어가 사용할 심볼과 입력받은 이름을 매개값으로 전달하여 플레이어1 객체 생성
         player1 = new Player(player1Name, 'X');
 
