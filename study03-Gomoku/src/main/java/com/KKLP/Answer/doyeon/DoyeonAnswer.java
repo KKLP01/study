@@ -61,9 +61,8 @@ public class DoyeonAnswer {
                         System.out.println("이선좌 입니다");          //빈칸아니면 출력 후 무한for문반복
                     }
                 }
-            }
+            }else{          //짝수턴=플레이어2
 
-            if (turn % 2 == 1) {          //짝수턴=플레이어2
                 for (; ; ) {
                     System.out.println("----------Player2 차례입니다----------");
                     System.out.print("바둑 놓을 행 번호 : ");
@@ -92,7 +91,6 @@ public class DoyeonAnswer {
                         System.out.println("이선좌 입니다");          //빈칸아니면 출력 후 무한for문반복
                     }
                 }
-
             }
 
 
@@ -153,12 +151,7 @@ public class DoyeonAnswer {
                 System.out.println("Player2 승리");
                 System.out.println("게임 종료");
                 break;
-            } else {
-                System.out.println("무승부");
-                System.out.println("게임 종료");
-                break;
             }
-
         }
 
     }
