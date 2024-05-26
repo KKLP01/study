@@ -5,10 +5,6 @@ public class GameInfo {
     private String[][] array = new String[10][10];
     private boolean isPlay1 = true;
 
-    public int getArrayLength() {
-        return array.length;
-    }
-
 
     // 오목 초기화
     public void initializeOmok() {
@@ -82,7 +78,7 @@ public class GameInfo {
                     return false;
             }
         }
-        // 빈칸이 없고 무승부 true 리턴
+        // 빈칸 없으면 무승부 true 리턴
         return true;
     }
 
