@@ -17,16 +17,20 @@ public class LoginService {
 
             User user = new User();
 
-            System.out.println("========== 회원 가입 ==========\n");
-            System.out.println("사용하실 아이디를 입력해 주세요 : ");
-            user.setId(sc.nextLine());
+            while (true) {
+                System.out.println("========== 회원 가입 ==========\n");
+                System.out.println("사용하실 아이디를 입력해 주세요 : ");
 
-//            String userId = sc.nextLine();
-//            boolean idUnique = loginRepository.isUserIdUnique(userId);
-//
-//            if (idUnique) {
-//                user.setId(userId);
-//            } else System.out.println("이미 가입된 아이디 입니다.");
+                String inputUserId = sc.nextLine();
+                boolean idUnique = loginRepository.isUserIdUnique(inputUserId);
+
+                if (idUnique == true) { // 유니크하면
+                    user.setId(inputUserId);
+                    break;
+                } else {
+                    System.out.println("이미 가입된 아이디 입니다.");
+                }
+            }
 
             System.out.println("가입자의 이름을 입력해 주세요 : ");
             user.setName(sc.nextLine());
@@ -53,7 +57,7 @@ public class LoginService {
     // 로그인 _ 정보 입력 받아 repo 로 넘기기
     public int login() {
 
-        if (loginRepository.showCount()==0) System.out.println("가입한 회원이 없습니다.");
+        if (loginRepository.showCount() == 0) System.out.println("가입한 회원이 없습니다.");
 
         Scanner sc = new Scanner(System.in);
 
