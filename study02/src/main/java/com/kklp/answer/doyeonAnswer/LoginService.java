@@ -26,7 +26,7 @@ public class LoginService {
                 User newUser = new User(id, pwd);
                 //향상된 for문(foreach문)
                 for (User user : loginRepository.findAllUsers()) {
-                    if(user!=null) {            //DB확인
+                    if (user != null) {            //DB확인
                         if (newUser.getId().equals(user.getId()) && newUser.getPwd().equals(user.getPwd())) {
                             System.out.println("---------로그인 완료------");
                             loginOn(newUser);           //로그인 후 메인
@@ -45,8 +45,9 @@ public class LoginService {
 
         System.out.println("====================");
         while (true) {
-            System.out.println("아이디 입력");
-            String id = sc.nextLine();
+
+            String id = idExistenceCheck();         //아이디 입력 및 중복체크
+
             System.out.println("이름 입력");
             String name = sc.nextLine();
             System.out.println("비밀번호 입력");
@@ -67,6 +68,37 @@ public class LoginService {
                 break;          //메인 홈
             } else {
                 System.out.println("비밀번호 같지않음. 다시 입력");
+            }
+        }
+    }
+
+
+    public String idExistenceCheck() {          //아이디 입력 및 중복체크
+
+        while (true) {
+
+            System.out.println("아이디 입력");
+            String id = sc.nextLine();
+
+            User newId = new User(id);
+
+            System.out.println("----------아이디 중복 체크----------");
+
+            if (loginRepository.findAllUsers()[0] != null) {            //DB확인-이미 가입자가 있는 경우
+                for (User idStore : loginRepository.findAllUsers()) {
+                    if (idStore != null) {          //비교데이터 남은 경우
+                        if (newId.getId().equals(idStore.getId())) {            //아이디 동일여부확인
+                            System.out.println("이미 가입된 아이디입니다. 다시 입력해주세요");
+                            break;          //for문 퇴장-while문 입장
+                        }
+                    } else {            //비교데이터 없는 경우
+                        System.out.println("사용 가능한 아이디입니다");
+                        return newId.getId();           //입력한 아이디 리턴
+                    }
+                }
+            } else {            //DB확인-가입자가 없는 경우
+                System.out.println("사용 가능한 아이디입니다");
+                return newId.getId();           //입력한 아이디 리턴
             }
         }
     }
@@ -108,4 +140,3 @@ public class LoginService {
         }
     }
 }
-
