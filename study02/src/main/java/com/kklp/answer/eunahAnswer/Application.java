@@ -32,11 +32,14 @@ public class Application {
         LoginService loginService = new LoginService();
 
         while (true) {
-            System.out.println("========로그인 및 회원가입 프로그램========");
-            System.out.println("1. 로그인");
-            System.out.println("2. 회원 가입");
-            System.out.println("9. 프로그램 종료");
+            System.out.println("");
+            System.out.println("=========로그인 및 회원가입 프로그램=========");
+            System.out.print("1. 로그인   ");
+            System.out.print("2. 회원 가입   ");
+            System.out.println("9. 프로그램 종료   ");
+            System.out.println("=========================================");
             int no = scr.nextInt();
+            scr.nextLine(); // 버퍼 비우기
 
             switch (no) {
                 case 1:

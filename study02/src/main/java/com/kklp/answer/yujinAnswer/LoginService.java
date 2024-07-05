@@ -31,8 +31,18 @@ public class LoginService {
 
 
     public void signUpUser() {
-        System.out.print("아이디를 입력해주세요 : ");
-        String id = sc.next();
+        String id;
+
+        while (true) {
+            System.out.print("아이디를 입력해주세요 : ");
+            id = sc.next();
+            if (loginRepository.checkId(id)) {
+                System.out.println("이미 가입된 아이디입니다. 다시 입력해주세요 \n");
+            } else {
+                System.out.println("사용 가능한 아이디입니다. \n");
+                break;
+            }
+        }
 
         sc.nextLine();
 
@@ -56,6 +66,7 @@ public class LoginService {
         } else {
             System.out.println("비밀번호가 서로 다릅니다.");
         }
+        System.out.println();
     }
 
 
